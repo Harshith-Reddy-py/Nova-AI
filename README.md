@@ -30,6 +30,7 @@ Ensure you have Python 3.7+ installed. Then install the required Python packages
 bash
 Copy
 Edit
+
 pip install pyttsx3 speechrecognition pyjokes pyaudio
 If you get an error installing pyaudio, try this:
 
