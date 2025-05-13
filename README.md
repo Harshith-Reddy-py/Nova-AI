@@ -27,18 +27,15 @@ Nova is an intelligent, offline-capable voice assistant built with Python. She l
 📦 Requirements
 Ensure you have Python 3.7+ installed. Then install the required Python packages:
 
-bash
-Copy
-Edit
-
-pip install pyttsx3 speechrecognition pyjokes pyaudio
+<pre> ```bash # Install dependencies pip install pyttsx3 speechrecognition pyjokes pyaudio ``` </pre>
 If you get an error installing pyaudio, try this:
 
-bash
-Copy
-Edit
-pip install pipwin
-pipwin install pyaudio
+<pre> ```bash pip install pipwin 
+  pipwin install pyaudio ```</pre>
+  
+
+
+
 📁 Project Structure
 bash
 Copy
