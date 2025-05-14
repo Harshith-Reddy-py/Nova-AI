@@ -8,7 +8,7 @@ To run Nova, ensure you have installed Python 3.7 or higher. Then, install the n
 
 ```bash
 # Install dependencies
-pip install pyttsx3 speechrecognition pyjokes pyaudio
+pip install pyttsx3 speechrecognition pyjokes pyaudio pywhatkit
 ```
 
 If you encounter issues when installing `pyaudio`, try the following commands:
