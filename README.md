@@ -1,104 +1,71 @@
-##🔊 Nova 
- Your Personal Offline Voice Assistant (Windows)
-Nova is an intelligent, offline-capable voice assistant built with Python. She listens, responds with a friendly female voice, and helps you manage your system, browse the web, tell jokes, and more — without requiring internet APIs.
+**Nova: Offline-Capable Intelligent Voice Assistant**
 
-## ✨ Features
-🎤 Voice-Controlled: Just speak — no need to type.
+**Overview:**
+Nova is an intelligent voice assistant developed using Python, designed to operate without reliance on internet APIS. It offers a friendly female voice, assisting users in managing their systems, browsing the web, telling jokes, and more.
 
-👩‍🦰 Human-like Female Voice (Windows).
+### 📦 Requirements
+To run Nova, ensure you have installed Python 3.7 or higher. Then, install the necessary Python packages:
 
-🕐 Tells current time.
+```bash
+# Install dependencies
+pip install pyttsx3 speechrecognition pyjokes pyaudio
+```
 
-📝 Opens Notepad on command.
+If you encounter issues when installing `pyaudio`, try the following commands:
 
-🎵 Plays local music.
+```bash
+pip install pipwin
+pipwin install pyaudio
+```
 
-🌐 Opens websites or performs Google searches.
+### 🛠 Setup Instructions
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/your-username/Nova.git
+   cd Nova
+   ```
+2. Launch Nova:
+   ```bash
+   python nova_windows.py
+   ```
 
-😂 Tells funny jokes using pyjokes.
+### 🔧 Functionality
+- **Voice Recognition:** Utilizes the `speech_recognition` library to listen and interpret voice commands.
+- **Text-to-Speech:** Employs `pyttsx3` to produce speech output in a female voice.
+- **Humour:** Implements `pyjokes` for offline jokes and entertainment.
+- **System Commands:** Executes application launches and commands through built-in Python modules.
 
-💻 Executes system commands (shutdown/restart).
+### 🧠 Example Commands
+- “What’s the time?”
+- “Open Notepad”
+- “Play music”
+- “Open website”
+- “Search Python tutorials”
+- “Tell me a joke”
+- “Shutdown the system”
+- “Restart the computer”
 
-🧠 Remembers recent queries during the session.
+### 🧩 Future Development Ideas
+- Implement alarm and reminder functionalities.
+- Integrate a wake word feature (e.g., “Hey Nova”).
+- Develop a graphical user interface (GUI) version.
+- Convert the application into an executable (.exe) for desktop use.
 
-🔒 100% offline — no API keys required.
+### 🤖 Voice Customisation
+By default, Nova uses a female voice on Windows. To change the voice, you may use the following code:
 
-
-
-## 📦 Requirements
-Ensure you have Python 3.7+ installed. Then install the required Python packages:
-
-<pre>  # Install dependencies pip install pyttsx3 speechrecognition pyjokes pyaudio  </pre>
-If you get an error installing pyaudio, try this:
-
-<pre>  pip install pipwin 
-  pipwin install pyaudio </pre>
-  
-
-## 🛠 Setup Instructions
-Clone the repo:
-
-bash
-Copy
-Edit
-git clone https://github.com/your-username/Nova.git
-cd Nova
-
-Run Nova:
-
-bash
-Copy
-Edit
-python nova_windows.py
-## 🔧 How It Works
-Uses speech_recognition to listen and process your voice.
-
-Uses pyttsx3 for text-to-speech with a female voice.
-
-Uses pyjokes for offline humor.
-
-Opens apps and performs commands using built-in Python modules.
-
-
-## 🧠 Example Commands
-“What’s the time?”
-
-“Open Notepad”
-
-“Play music”
-
-“Open website”
-
-“Search Python tutorials”
-
-“Tell me a joke”
-
-“Shutdown the system”
-
-“Restart the computer”
-
-## 🧩 To-Do / Future Ideas
-Add alarm/reminder functionality
-
-Integrate wake word (e.g., “Hey Nova”)
-
-Build a GUI version
-
-Convert to .exe desktop app
-
-## 🤖 Voice Customization
-Nova uses a female voice by default on Windows. If you want to change it:
-
-python
-Copy
-Edit
+```python
 voices = engine.getProperty('voices')
-engine.setProperty('voice', voices[1].id)  # Usually female
-Use the voice index or print(voice.name) to explore installed voices.
+engine.setProperty('voice', voices[1].id)  # Typically selects a female voice
+```
+To explore available voices, you can print their names using `print(voice.name)`.
 
-📝 License
-This project is open-source and available under the MIT License.
+### 📝 License
+This project is open-source and licensed under the MIT License.
 
-🙌 Credits
-Created by Harshith Reddy
-Feel free to contribute, fork, or report issues!
+### 🙌 Credits
+Developed by Harshith Reddy. Contributions, forks, and issue reports are welcome!
+
+
+
+
