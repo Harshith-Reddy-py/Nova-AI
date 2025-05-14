@@ -1,7 +1,8 @@
-🔊 Nova - Your Personal Offline Voice Assistant (Windows)
+##🔊 Nova 
+ Your Personal Offline Voice Assistant (Windows)
 Nova is an intelligent, offline-capable voice assistant built with Python. She listens, responds with a friendly female voice, and helps you manage your system, browse the web, tell jokes, and more — without requiring internet APIs.
 
-✨ Features
+## ✨ Features
 🎤 Voice-Controlled: Just speak — no need to type.
 
 👩‍🦰 Human-like Female Voice (Windows).
@@ -24,29 +25,17 @@ Nova is an intelligent, offline-capable voice assistant built with Python. She l
 
 
 
-📦 Requirements
+## 📦 Requirements
 Ensure you have Python 3.7+ installed. Then install the required Python packages:
 
-<pre> ```bash # Install dependencies pip install pyttsx3 speechrecognition pyjokes pyaudio ``` </pre>
+<pre>  # Install dependencies pip install pyttsx3 speechrecognition pyjokes pyaudio  </pre>
 If you get an error installing pyaudio, try this:
 
-<pre> ```bash pip install pipwin 
-  pipwin install pyaudio ```</pre>
+<pre>  pip install pipwin 
+  pipwin install pyaudio </pre>
   
 
-
-
-📁 Project Structure
-bash
-Copy
-Edit
-Nova/
-│
-├── nova_windows.py      # Main assistant code
-├── README.md            # You're reading it!
-├── nova_log.txt         # Auto-generated log file
-└── assets/              # (Optional) Add demo media here
-🛠 Setup Instructions
+## 🛠 Setup Instructions
 Clone the repo:
 
 bash
@@ -61,7 +50,7 @@ bash
 Copy
 Edit
 python nova_windows.py
-🔧 How It Works
+## 🔧 How It Works
 Uses speech_recognition to listen and process your voice.
 
 Uses pyttsx3 for text-to-speech with a female voice.
@@ -71,7 +60,7 @@ Uses pyjokes for offline humor.
 Opens apps and performs commands using built-in Python modules.
 
 
-🧠 Example Commands
+## 🧠 Example Commands
 “What’s the time?”
 
 “Open Notepad”
@@ -88,7 +77,7 @@ Opens apps and performs commands using built-in Python modules.
 
 “Restart the computer”
 
-🧩 To-Do / Future Ideas
+## 🧩 To-Do / Future Ideas
 Add alarm/reminder functionality
 
 Integrate wake word (e.g., “Hey Nova”)
@@ -97,7 +86,7 @@ Build a GUI version
 
 Convert to .exe desktop app
 
-🤖 Voice Customization
+## 🤖 Voice Customization
 Nova uses a female voice by default on Windows. If you want to change it:
 
 python
