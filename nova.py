@@ -1,159 +1,135 @@
-import pyttsx3
-import speech_recognition as sr
-import datetime
 import os
+import datetime
+import random
+import speech_recognition as sr
+from gtts import gTTS
 import webbrowser
 import pyjokes
-import logging
 import pywhatkit
-# Initialize and configure logging
-logging.basicConfig(filename="nova_log.txt", level=logging.INFO)
 
-# Initialize the speech engine
-engine = pyttsx3.init()
+# Supported voices (accents)
+voices = ['en', 'en-uk', 'en-in', 'en-au']
 
-# Set a female voice (usually index 1 on Windows)
-voices = engine.getProperty('voices')
-if len(voices) > 1:
-    engine.setProperty('voice', voices[1].id)  # Female voice
-else:
-    engine.setProperty('voice', voices[0].id)  # Fallback to default
+# Sample weather reports
+weather_reports = [
+    "It's sunny with a high of 25 degrees.",
+    "Cloudy skies and a chance of rain later today.",
+    "Expect thunderstorms this evening. Stay safe!",
+    "It's a cool day with light winds.",
+    "Very hot today. Stay hydrated!"
+]
 
-# Store user queries for simple session memory
-conversation_history = []
+# Smart chat responses
+smart_responses = {
+    "How are you": "I'm just a bunch of code, but I'm feeling fantastic!",
+    "who are you": "I'm Nova, your AI assistant and friend!",
+    "what is your name": "I'm Nova, always at your service!",
+    "thank ": "You're always welcome!",
+    "hello": "Hello there! Ready to help you.",
+    "hi": "Hi! What can I do for you today?"
+}
 
-def speak(text):
+# Speak function using gTTS
+def speak(text, lang='en'):
     print(f"Nova: {text}")
-    engine.say(text)
-    engine.runAndWait()
+    tts = gTTS(text=text, lang=lang)
+    tts.save("voice.mp3")
+    os.system("mpg123 voice.mp3")
 
-def wish_user():
-    hour = int(datetime.datetime.now().hour)
-    if 0 <= hour < 12:
-        speak("Good morning!")
-    elif 12 <= hour < 18:
-        speak("Good afternoon!")
-    else:
-        speak("Good evening!")
-    speak("I am Nova, your upgraded assistant. How can I help you today?")
-
+# Listen to user's command
 def take_command():
-    recognizer = sr.Recognizer()
+    r = sr.Recognizer()
     with sr.Microphone() as source:
         print("Listening...")
-        recognizer.pause_threshold = 1
-        try:
-            audio = recognizer.listen(source, timeout=5, phrase_time_limit=10)
-        except Exception as e:
-            logging.warning(f"Listening error: {e}")
-            speak("Sorry, I didn't catch that.")
-            return "None"
-
+        audio = r.listen(source)
     try:
         print("Recognizing...")
-        query = recognizer.recognize_google(audio, language='en-in')
+        query = r.recognize_google(audio)
         print(f"You said: {query}")
-    except Exception as e:
-        logging.warning(f"Recognition error: {e}")
-        speak("Sorry, could you please repeat?")
+    except Exception:
+        print("Say that again please...")
         return "None"
     return query.lower()
 
-def suggest_commands():
-    speak("Here are some things you can ask me:")
-    suggestions = [
-        "What is the time?",
-        "Open Notepad",
-        "Play music",
-        "Open a website",
-        "Search something",
-        "Tell me a joke",
-        "Shutdown or restart the system",
-        "Show my history",
-        "Exit"
-    ]
-    for s in suggestions:
-        speak(s)
+# Check if query matches smart replies
+def get_smart_reply(query):
+    for key in smart_responses:
+        if key in query:
+            return smart_responses[key]
+    return None
 
-def play_music():
-    speak("Which song would you like to play?")
-    song = take_command()
-    speak(f"Playing {song} on YouTube")
-    pywhatkit.playonyt(song)
-
+# Main Nova Assistant
 def main():
-    wish_user()
+    current_voice = 'en'  # Default voice (US)
+
+    hour = int(datetime.datetime.now().hour)
+    if 0 <= hour < 12:
+        speak("Good morning!", lang=current_voice)
+    elif 12 <= hour < 18:
+        speak("Good afternoon!", lang=current_voice)
+    else:
+        speak("Good evening!", lang=current_voice)
+    speak("Hello! I am Nova, your personal assistant!", lang=current_voice)
 
     while True:
         query = take_command()
 
-        if query == "None":
-            continue
-
-        conversation_history.append(query)
-
         if 'time' in query:
-            time_str = datetime.datetime.now().strftime("%I:%M %p")
-            speak(f"The time is {time_str}")
+            time_str = datetime.datetime.now().strftime("%H:%M")
+            speak(f"The time is {time_str}", lang=current_voice)
 
-        elif 'open notepad' in query:
-            os.system('notepad')
-            speak("Opening Notepad.")
-
-        elif 'play music' in query:
-            play_music()
+        elif 'weather' in query:
+            weather = random.choice(weather_reports)
+            speak(weather, lang=current_voice)
 
         elif 'open website' in query:
-            speak("Which website should I open?")
-            site = take_command()
-            if site != "None":
-                webbrowser.open(f"https://{site}.com")
-                speak(f"Opening {site}.com")
+            speak("Which website would you like to open?", lang=current_voice)
+            website = take_command()
+            webbrowser.open(f"https://{website}.com")
+
+        elif 'open google' in query:
+            webbrowser.open('https://www.google.com')
+            speak("Opening Google", lang=current_voice)
 
         elif 'search' in query:
-            speak("What would you like to search?")
+            speak("What would you like to search for?", lang=current_voice)
             search_query = take_command()
-            if search_query != "None":
-                webbrowser.open(f"https://www.google.com/search?q={search_query}")
-                speak(f"Searching Google for {search_query}")
+            webbrowser.open(f"https://www.google.com/search?q={search_query}")
 
         elif 'joke' in query:
             joke = pyjokes.get_joke()
-            speak(joke)
+            speak(joke, lang=current_voice)
 
-        elif 'shutdown' in query:
-            speak("Are you sure you want to shut down the system? Say yes or no.")
-            confirm = take_command()
-            if 'yes' in confirm:
-                speak("Shutting down.")
-                os.system("shutdown /s /f /t 0")
-            else:
-                speak("Shutdown cancelled.")
+        elif 'play song' in query or 'play music' in query:
+            speak("Which song would you like to play?", lang=current_voice)
+            song = take_command()
+            speak(f"Playing {song} on YouTube", lang=current_voice)
+            pywhatkit.playonyt(song)
 
-        elif 'restart' in query:
-            speak("Are you sure you want to restart the system? Say yes or no.")
-            confirm = take_command()
-            if 'yes' in confirm:
-                speak("Restarting.")
-                os.system("shutdown /r /f /t 0")
-            else:
-                speak("Restart cancelled.")
+        elif 'change voice' in query:
+            current_voice = random.choice(voices)
+            speak(f"Voice changed!", lang=current_voice)
+            speak("Hello! This is Nova with a new voice.", lang=current_voice)
 
-        elif 'history' in query:
-            if conversation_history:
-                speak("Here’s your recent history:")
-                for item in conversation_history[-5:]:
-                    speak(item)
-            else:
-                speak("There's nothing in history yet.")
-
-        elif 'exit' in query or 'stop' in query or 'quit' in query:
-            speak("Goodbye! Have a productive day.")
+        elif 'exit' in query or 'stop' in query:
+            speak("Goodbye! See you later!", lang=current_voice)
             break
 
         else:
-            speak("I didn't understand that.")
-            suggest_commands()
+            # Try smart reply
+            smart_reply = get_smart_reply(query)
+            if smart_reply:
+                speak(smart_reply, lang=current_voice)
+            elif query != "None":
+                speak("Sorry, I didn't understand that.", lang=current_voice)
 
 if __name__ == "__main__":
     main()
+
+    
+        
+
+
+        
+            
+                
