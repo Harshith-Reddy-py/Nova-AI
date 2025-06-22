@@ -1,4 +1,4 @@
-**Nova: Offline-Capable Intelligent Voice Assistant**
+#**Nova: Offline-Capable Intelligent Voice Assistant**
 
 **Overview:**
 Nova is an intelligent voice assistant developed using Python, designed to operate without reliance on internet APIS. It offers a friendly female voice, assisting users in managing their systems, browsing the web, telling jokes, and more.
